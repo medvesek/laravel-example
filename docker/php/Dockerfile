@@ -9,4 +9,7 @@ RUN apt-get install -y libpq-dev
 RUN docker-php-ext-install pdo_pgsql
 
 FROM base AS prod
-COPY --from=composer /var/www/html /var/www/html
+USER www-data
+WORKDIR /var/www/html
+COPY --chown=www-data:www-data --from=composer /var/www/html /var/www/html
+COPY .env.example .env
