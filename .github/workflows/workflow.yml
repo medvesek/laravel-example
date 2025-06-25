@@ -32,5 +32,6 @@ jobs:
         with:
           context: "{{defaultContext}}"
           file: "docker/php/Dockerfile"
+          target: prod
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
