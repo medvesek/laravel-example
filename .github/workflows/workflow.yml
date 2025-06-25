@@ -13,4 +13,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Composer
-        run: compose install
+        run: composer install
