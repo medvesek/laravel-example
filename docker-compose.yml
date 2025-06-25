@@ -12,6 +12,7 @@ services:
     php:
         build:
             context: ./docker/php
+            target: base
         user: 1000:1000
         working_dir: /var/www/html
         volumes:

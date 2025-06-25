@@ -17,9 +17,9 @@ jobs:
 
   docker:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
         with:
@@ -30,6 +30,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: "{{defaultContext}}:docker/php"
+          context: "{{defaultContext}}"
+          file: "{{context}}/docker/php/Dockerfile"
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
