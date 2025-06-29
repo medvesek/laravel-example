@@ -10,9 +10,9 @@ services:
       - traefik-net
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.echo.rule=Host(`laravel-example.ajmuht.eu`)"
-      - "traefik.http.routers.echo.entrypoints=websecure"
-      - "traefik.http.routers.echo.tls.certresolver=le"
+      - "traefik.http.routers.laravel_example.rule=Host(`laravel-example.ajmuht.eu`)"
+      - "traefik.http.routers.laravel_example.entrypoints=websecure"
+      - "traefik.http.routers.laravel_example.tls.certresolver=le"
     expose:
       - 80
       - 443
