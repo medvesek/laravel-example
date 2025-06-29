@@ -15,6 +15,7 @@ services:
       - "traefik.http.routers.echo.tls.certresolver=le"
     expose:
       - 80
+      - 443
 
   postgres:
     image: postgres:17
