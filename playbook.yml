@@ -4,7 +4,7 @@
     - name: Copy docker compose
       ansible.builtin.copy:
         src: ./docker-compose-prod.yml
-        dest: ~/docker/apps/laravel-example/
+        dest: ~/docker/apps/laravel-example/docker-compose.yml
     - name:
       ansible.builtin.copy:
         content: |
