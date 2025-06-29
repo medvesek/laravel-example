@@ -1,0 +1,17 @@
+- name: Deploy
+  hosts: all
+  tasks:
+    - name: Copy docker compose
+      ansible.builtin.copy:
+        src: ./docker-compose-prod.yml
+        dest: ~/docker/apps/laravel-example/
+    - name:
+      ansible.builtin.copy:
+        content: |
+          {{ lookup("env", "ENV_PROD") }}
+        dest: ~/docker/apps/laravel-example/.env
+
+    - name: Run docker compose laravel example
+      community.docker.docker_compose_v2:
+        project_src: ~/docker/apps/laravel-example
+        state: present
