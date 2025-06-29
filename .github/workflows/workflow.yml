@@ -2,6 +2,9 @@ name: Workflow
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -28,7 +31,11 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    container: ghcr.io/medvesek/infrastructure-ansible:latest
+    container:
+      image: ghcr.io/medvesek/infrastructure-ansible:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4
