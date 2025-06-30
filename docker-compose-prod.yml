@@ -13,7 +13,7 @@ services:
       - "traefik.http.routers.laravel_example.rule=Host(`laravel-example.ajmuht.eu`)"
       - "traefik.http.routers.laravel_example.entrypoints=websecure"
       - "traefik.http.routers.laravel_example.tls.certresolver=le"
-      - "traefik.http.services.webapp.loadbalancer.server.port=80"
+      - "traefik.http.services.laravel_example.loadbalancer.server.port=80"
     expose:
       - 80
       - 443
