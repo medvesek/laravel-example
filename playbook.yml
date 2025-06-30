@@ -14,7 +14,8 @@
 
     - name: Migrate
       command: docker compose run --rm app php artisan migrate
-      chdir: ~/docker/apps/laravel-example
+      args:
+        chdir: ~/docker/apps/laravel-example
 
     - name: Run docker compose laravel example
       community.docker.docker_compose_v2:
