@@ -5,11 +5,16 @@
       ansible.builtin.copy:
         src: ./docker-compose-prod.yml
         dest: ~/docker/apps/laravel-example/docker-compose.yml
+
     - name:
       ansible.builtin.copy:
         content: |
           {{ lookup("env", "ENV_PROD") }}
         dest: ~/docker/apps/laravel-example/.env
+
+    - name: Migrate
+      command: docker compose run --rm app php artisan migrate
+      chdir: ~/docker/apps/laravel-example
 
     - name: Run docker compose laravel example
       community.docker.docker_compose_v2:
