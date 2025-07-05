@@ -17,6 +17,11 @@
       args:
         chdir: ~/docker/apps/laravel-example
 
+    - name: Optimize
+      command: docker compose run --rm app php artisan optimize
+      args:
+        chdir: ~/docker/apps/laravel-example
+
     - name: Run docker compose laravel example
       community.docker.docker_compose_v2:
         project_src: ~/docker/apps/laravel-example
