@@ -20,4 +20,5 @@ FROM base AS prod
 #USER www-data
 WORKDIR /var/www/html
 COPY --chown=www-data:www-data --from=composer /var/www/html /var/www/html
+RUN php artisan optimize
 
