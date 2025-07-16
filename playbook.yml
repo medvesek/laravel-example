@@ -23,7 +23,7 @@
         driver: overlay
 
     - name: Deploy db
-      shell: docker compose config -f docker-compose-db-prod.yml | docker stack deploy --compose -
+      shell: docker compose -f docker-compose-db-prod.yml config | docker stack deploy --compose -
       args:
         chdir: /root/docker/apps/laravel-example
 
