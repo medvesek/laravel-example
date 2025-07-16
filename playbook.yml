@@ -1,10 +1,15 @@
 - name: Deploy
   hosts: all
   tasks:
-    - name: Copy docker compose
+    - name: Copy docker compose app
       ansible.builtin.copy:
-        src: ./docker-compose-prod.yml
-        dest: ~/docker/apps/laravel-example/docker-compose.yml
+        src: ./docker-compose-app-prod.yml
+        dest: ~/docker/apps/laravel-example/docker-compose-app.yml
+
+    - name: Copy docker compose db
+      ansible.builtin.copy:
+        src: ./docker-compose-db-prod.yml
+        dest: ~/docker/apps/laravel-example/docker-compose-db.yml
 
     - name: Env
       ansible.builtin.copy:
@@ -12,18 +17,27 @@
           {{ lookup("env", "ENV_PROD") }}
         dest: ~/docker/apps/laravel-example/.env
 
-    - name: Migrate
-      command: docker compose run --rm app php artisan migrate --force
+    - name: Create a network
+      community.docker.docker_network:
+        name: laravel-example-net
+        driver: overlay
+
+    - name: Deploy db
+      shell: docker compose config -f docker-compose-db-prod.yml | docker stack deploy --compose -
       args:
-        chdir: ~/docker/apps/laravel-example
+        chdir: /root/docker/apps/laravel-example
+
+    - name: Migrate
+      command: docker service create --name migration --rm --config source=laravel_example_env,target=/var/www/html/.env --network laravel-example-net ghcr.io/medvesek/laravel-example:latest php artisan migrate
+
+    - name: Deploy app
+      community.docker.docker_stack:
+        state: present
+        name: laravel-example-app
+        compose:
+          - /root/docker/apps/laravel-example/docker-compose-app.yml
 
     - name: Optimize
       command: docker compose run --rm app php artisan optimize
       args:
         chdir: ~/docker/apps/laravel-example
-
-    - name: Run docker compose laravel example
-      community.docker.docker_compose_v2:
-        project_src: ~/docker/apps/laravel-example
-        state: present
-        pull: always
