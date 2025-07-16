@@ -23,12 +23,12 @@
         driver: overlay
 
     - name: Deploy db
-      shell: docker compose -f docker-compose-db.yml config | docker stack deploy --compose -
+      shell: docker compose -f docker-compose-db.yml config | docker stack deploy -c -
       args:
         chdir: /root/docker/apps/laravel-example
 
     - name: Migrate
-      command: docker service create --name migration --rm --config source=laravel_example_env,target=/var/www/html/.env --network laravel-example-net ghcr.io/medvesek/laravel-example:latest php artisan migrate
+      command: docker service create --name migration --detach=false --restart-condition none --config source=laravel_example_env,target=/var/www/html/.env --network laravel-example-net ghcr.io/medvesek/laravel-example:latest php artisan migrate
 
     - name: Deploy app
       community.docker.docker_stack:
