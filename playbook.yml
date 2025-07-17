@@ -49,6 +49,8 @@
         --network laravel-example-net
         ghcr.io/medvesek/laravel-example:latest
         php artisan migrate --force
+      args:
+        chdir: /root/docker/apps/laravel-example
 
     - name: Remove migration service
       command: |
