@@ -1,11 +1,12 @@
 services:
   app:
     image: ghcr.io/medvesek/laravel-example:latest
-    configs:
-      - source: laravel_example_env
-        target: /var/www/html/.env
+    #configs:
+    #  - source: laravel_example_env
+    #    target: /var/www/html/.env
+    env_file: .env
     networks:
-      - default
+      - laravel-example-net
       - traefik-net
     deploy:
       replicas: 1
@@ -20,6 +21,8 @@ services:
         - "traefik.http.services.laravel_example.loadbalancer.server.port=80"
 
 networks:
+  laravel-example-net:
+    external: true
   traefik-net:
     external: true
 
