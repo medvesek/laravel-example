@@ -1,19 +1,16 @@
 - name: Deploy
   hosts: all
   tasks:
-    - name: python-dotenv
-      community.general.pipx:
-        name: python-dotenv[cli]
-        state: absent
-
-    - name: pipx
-      package:
-        name: pipx
-        state: absent
-
-    - name:
+    - name: python3-dotenv-cli
       package:
         name: python3-dotenv-cli
+        state: present
+
+    - name: Create config foo
+      community.docker.docker_config:
+        name: laravel_example_env
+        data: |
+          {{ lookup("env", "ENV_PROD") }}
         state: present
 
     - name: Copy docker compose app
@@ -38,7 +35,7 @@
         driver: overlay
 
     - name: Deploy db
-      shell: dotenv run -- docker stack deploy -c - laravel-example-db
+      shell: dotenv docker stack deploy -c docker-compose-db.yml laravel-example-db
       args:
         chdir: /root/docker/apps/laravel-example
 
