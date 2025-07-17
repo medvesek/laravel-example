@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Bonbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 
