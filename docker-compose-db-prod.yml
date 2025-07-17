@@ -1,6 +1,8 @@
 services:
   postgres:
     image: postgres:17
+    networks:
+      - laravel-example-net
     volumes:
       - postgresdata:/var/lib/postgresql/data
     environment:
