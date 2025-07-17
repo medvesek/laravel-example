@@ -40,21 +40,23 @@
         chdir: /root/docker/apps/laravel-example
 
     - name: Migrate
-      command: |
-        docker service create
-        --name migration
-        --mode replicated-job
-        --restart-condition none
-        --env-file .env
-        --network laravel-example-net
-        ghcr.io/medvesek/laravel-example:latest
-        php artisan migrate --force
-      args:
-        chdir: /root/docker/apps/laravel-example
-
-    - name: Remove migration service
-      command: |
-        docker service rm migration
+      block:
+        - name: Migrate DB
+          command: |
+            docker service create
+            --name migration
+            --mode replicated-job
+            --restart-condition none
+            --env-file .env
+            --network laravel-example-net
+            ghcr.io/medvesek/laravel-example:latest
+            php artisan migrate --force
+          args:
+            chdir: /root/docker/apps/laravel-example
+      always:
+        - name: Remove migration service
+          command: |
+            docker service rm migration
 
     - name: Deploy app
       community.docker.docker_stack:
