@@ -8,7 +8,7 @@
 
     - name: python-dotenv
       community.general.pipx:
-        name: python-dotenv
+        name: python-dotenv[cli]
         state: present
 
     - name: Copy docker compose app
