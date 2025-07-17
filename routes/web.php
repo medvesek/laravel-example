@@ -14,6 +14,7 @@ Route::get('/bonbon', function() {
     if(!$bonbon) {
         return Bonbon::create(["value" => Str::random(5)]);
     }
+    return $bonbon;
 });
 
 Route::post('/bonbon', function() {
