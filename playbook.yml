@@ -64,8 +64,3 @@
         name: laravel-example-app
         compose:
           - /root/docker/apps/laravel-example/docker-compose-app.yml
-
-    - name: Optimize
-      command: docker compose run --rm app php artisan optimize
-      args:
-        chdir: ~/docker/apps/laravel-example
