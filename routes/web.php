@@ -8,12 +8,14 @@ Route::get('/', function () {
     return ["status" => "ok3"];
 });
 
+
 Route::get('/bonbon', function() {
-    return Bonbon::first();
+    $bonbon = Bonbon::first();
+    if(!$bonbon) {
+        return Bonbon::create(["value" => Str::random(5)]);
+    }
 });
 
 Route::post('/bonbon', function() {
     return Bonbon::create(["value" => Str::random(5)]);
-});
-
-
+})->withoutMiddleware([Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
