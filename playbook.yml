@@ -1,14 +1,19 @@
 - name: Deploy
   hosts: all
   tasks:
-    - name: pipx
-      package:
-        name: pipx
-        state: present
-
     - name: python-dotenv
       community.general.pipx:
         name: python-dotenv[cli]
+        state: absent
+
+    - name: pipx
+      package:
+        name: pipx
+        state: absent
+
+    - name:
+      package:
+        name: python3-dotenv-cli
         state: present
 
     - name: Copy docker compose app
