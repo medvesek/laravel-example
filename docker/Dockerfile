@@ -20,3 +20,6 @@ FROM base AS prod
 #USER www-data
 WORKDIR /var/www/html
 COPY --chown=www-data:www-data --from=composer /var/www/html /var/www/html
+COPY ./docker/entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
