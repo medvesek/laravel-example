@@ -1,3 +1,4 @@
 #!/bin/bash
 php artisan optimize
-php-fpm
+php-fpm -D
+nginx -g 'daemon off;'
