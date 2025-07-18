@@ -21,6 +21,7 @@ FROM base AS prod
 WORKDIR /var/www/html
 COPY --chown=www-data:www-data --from=composer /var/www/html /var/www/html
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+COPY ./docker/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY ./docker/entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 CMD ["/entrypoint.sh"]
