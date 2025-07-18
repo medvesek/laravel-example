@@ -20,3 +20,8 @@ Route::get('/bonbon', function() {
 Route::post('/bonbon', function() {
     return Bonbon::create(["value" => Str::random(5)]);
 })->withoutMiddleware([Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
+
+
+Route::get('/opcache', function() {
+    return opcache_get_status();
+});
