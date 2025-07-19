@@ -1,9 +1,6 @@
 services:
   app:
     image: ghcr.io/medvesek/laravel-example:latest
-    #configs:
-    #  - source: laravel_example_env
-    #    target: /var/www/html/.env
     env_file: .env
     networks:
       - laravel-example-net

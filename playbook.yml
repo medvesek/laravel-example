@@ -1,20 +1,10 @@
 - name: Deploy
   hosts: all
   tasks:
-    - name: Test
-      include_role: deployapp
-
     - name: python3-dotenv-cli
       package:
         name: python3-dotenv-cli
         state: present
-
-    - name: Create config foo
-      community.docker.docker_config:
-        name: laravel_example_env
-        data: |
-          {{ lookup("env", "ENV_PROD") }}
-        state: absent
 
     - name: Copy docker compose app
       ansible.builtin.copy:
