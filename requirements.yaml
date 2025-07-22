@@ -1,4 +1,2 @@
 collections:
-  - name: medvesek.deploy
-    source: https://github.com/medvesek/infrastructure.git#ansible/collections/medvesek/deploy
-    type: git
+  - name: https://github.com/medvesek/infrastructure.git#ansible/collections/medvesek/deploy
