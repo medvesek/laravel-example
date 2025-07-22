@@ -1,1 +1,2 @@
 - src: https://github.com/medvesek/infrastructure.git#/ansible/roles/deployapp
+- src: git+https://github.com/medvesek/infrastructure.git#ansible/collections/medvesek/deploy

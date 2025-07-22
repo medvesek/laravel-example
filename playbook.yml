@@ -1,6 +1,9 @@
 - name: Deploy
   hosts: all
   tasks:
+    - name:
+      import_role: medvesek.deploy.testrole
+
     - name: python3-dotenv-cli
       package:
         name: python3-dotenv-cli
