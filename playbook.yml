@@ -4,7 +4,7 @@
     - name: Deploy
       include_role:
         name: medvesek.deploy.deploy
-      args:
+      vars:
         app_name: laravel-example
         source: ./dist
         pre-deploy:
