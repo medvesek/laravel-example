@@ -32,8 +32,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     container: ghcr.io/medvesek/infrastructure-ansible:latest
-    env:
-      ENV_PROD: ${{ secrets.ENV_PROD }}
+    #env:
+    #ENV_PROD: ${{ secrets.ENV_PROD }}
 
     steps:
       - uses: actions/checkout@v4
@@ -46,6 +46,9 @@ jobs:
 
       - name: Install dependencies
         run: ansible-galaxy install -r requirements.yaml
+
+      - name: Env
+        run: echo "${{ secrets.ENV_PROD }}" > secret.txt
 
       - name: Run playbook
         run: ansible-playbook -u root -i ${{ secrets.AQUILA_IP }}, playbook.yml

@@ -1,63 +1,12 @@
 - name: Deploy
   hosts: all
   tasks:
-    - name: Test collection
-      medvesek.deploy.my_test:
-        name: hello world
-
-    - name: python3-dotenv-cli
-      package:
-        name: python3-dotenv-cli
-        state: present
-
-    - name: Copy docker compose app
-      ansible.builtin.copy:
-        src: ./docker-compose-app-prod.yml
-        dest: ~/docker/apps/laravel-example/docker-compose-app.yml
-
-    - name: Copy docker compose db
-      ansible.builtin.copy:
-        src: ./docker-compose-db-prod.yml
-        dest: ~/docker/apps/laravel-example/docker-compose-db.yml
-
-    - name: Env
-      ansible.builtin.copy:
-        content: |
-          {{ lookup("env", "ENV_PROD") }}
-        dest: ~/docker/apps/laravel-example/.env
-
-    - name: Create a network
-      community.docker.docker_network:
-        name: laravel-example-net
-        driver: overlay
-
-    - name: Deploy db
-      shell: dotenv docker stack deploy -c docker-compose-db.yml laravel-example-db
+    - name: Deploy
+      include_role: medvesek.deploy.deploy
       args:
-        chdir: /root/docker/apps/laravel-example
-
-    - name: Migrate
-      block:
-        - name: Migrate DB
-          command: |
-            docker service create
-            --name migration
-            --mode replicated-job
-            --restart-condition none
-            --env-file .env
-            --network laravel-example-net
-            ghcr.io/medvesek/laravel-example:latest
-            php artisan migrate --force
-          args:
-            chdir: /root/docker/apps/laravel-example
-      always:
-        - name: Remove migration service
-          command: |
-            docker service rm migration
-
-    - name: Deploy app
-      community.docker.docker_stack:
-        state: present
-        name: laravel-example-app
-        compose:
-          - /root/docker/apps/laravel-example/docker-compose-app.yml
+        app_name: laravel-example
+        source: ./dist
+        pre-deploy:
+          - name: Migrate db
+            image: ghcr.io/medvesek/laravel-example:latest
+            command: php artisan migrate --force
