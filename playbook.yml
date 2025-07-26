@@ -2,7 +2,8 @@
   hosts: all
   tasks:
     - name: Deploy
-      include_role: medvesek.deploy.deploy
+      include_role:
+        name: medvesek.deploy.deploy
       args:
         app_name: laravel-example
         source: ./dist
