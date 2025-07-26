@@ -7,7 +7,7 @@
       vars:
         app_name: laravel-example
         source: ./dist
-        pre-deploy:
+        pre_deploy:
           - name: Migrate db
             image: ghcr.io/medvesek/laravel-example:latest
             command: php artisan migrate --force
