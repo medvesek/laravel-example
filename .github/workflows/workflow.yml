@@ -53,7 +53,7 @@ jobs:
         run: ansible-galaxy install -r requirements.yaml
 
       - name: Env
-        run: echo "${{ secrets.ENV_PROD }}" > secret.txt
+        run: echo "${{ secrets.ENV_PROD }}" > dist/.env
 
       - name: Run playbook
         run: ansible-playbook -u root -i ${{ secrets.AQUILA_IP }}, playbook.yml
