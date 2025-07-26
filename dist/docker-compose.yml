@@ -18,8 +18,6 @@ services:
                 - "traefik.http.services.laravel_example.loadbalancer.server.port=80"
     postgres:
         image: postgres:17
-        networks:
-            - laravel-example-net
         volumes:
             - postgresdata:/var/lib/postgresql/data
         environment:
@@ -30,3 +28,6 @@ services:
 networks:
     traefik-net:
         external: true
+
+volumes:
+    postgresdata:
