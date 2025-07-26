@@ -3,6 +3,7 @@ services:
         image: ghcr.io/medvesek/laravel-example:latest
         env_file: .env
         networks:
+            - default
             - traefik-net
         deploy:
             replicas: 1
