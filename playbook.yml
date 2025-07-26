@@ -8,6 +8,6 @@
         app_name: laravel-example
         source: ./dist
         pre_deploy:
-          - name: Migrate db
+          - name: laravel_example_migrate_db
             image: ghcr.io/medvesek/laravel-example:latest
             command: php artisan migrate --force
