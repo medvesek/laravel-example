@@ -7,6 +7,10 @@
       vars:
         app_name: laravel-example
         source: ./dist
+        expose:
+          - service: app
+            entrypoints: websecure
+            port: 80
         pre_deploy:
           - name: laravel_example_migrate_db
             image: ghcr.io/medvesek/laravel-example:latest
