@@ -23,5 +23,5 @@ Route::post('/bonbon', function() {
 
 
 Route::get('/opcache', function() {
-    return opcache_get_status();
+    //return opcache_get_status();
 });
