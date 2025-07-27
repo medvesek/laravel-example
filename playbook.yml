@@ -9,6 +9,7 @@
         source: ./dist
         expose:
           - service: app
+            hostname: laravel-example.ajmuht.eu
             entrypoints: websecure
             port: 80
         pre_deploy:
