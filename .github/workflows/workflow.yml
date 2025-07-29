@@ -53,4 +53,4 @@ jobs:
         run: echo "${{ secrets.ENV_PROD }}" > dist/.env
 
       - name: Run playbook
-        run: ansible-playbook -u root -i ${{ secrets.AQUILA_IP }}, playbook.yml
+        run: ansible-playbook -u ansible -i ${{ secrets.AQUILA_IP }}, playbook.yml
