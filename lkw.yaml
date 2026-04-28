@@ -1,0 +1,14 @@
+name: laravel-example.ajmuht.eu
+type: app
+source: dist
+expose:
+  - service: app
+    expose:
+      - port: 80
+        entrypoint: websecure
+        domain: laravel-example.ajmuht.eu
+predeploy:
+  - name: migration
+    image: ghcr.io/medvesek/laravel-example:latest
+    envfile: .env
+    command: php artisan migrate --force
